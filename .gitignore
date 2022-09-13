@@ -129,9 +129,9 @@ dmypy.json
 .pyre/
 
 # Data
-.xlsx
-.xls
-.png
-/model_weight
-.idea
-/__pycache__
+*.xlsx
+*.xls
+*.png
+model_weight/*
+*.idea
+__pycache__/*
