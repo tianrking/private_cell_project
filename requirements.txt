@@ -29,7 +29,7 @@ libclang==12.0.0
 Markdown==3.3.4
 matplotlib==3.4.3
 matplotlib-inline @ file:///tmp/build/80754af9/matplotlib-inline_1628242447089/work
-numpy==1.18.5
+numpy==1.22.0
 oauthlib==3.1.1
 opencv-python==4.5.4.58
 opt-einsum==3.3.0
