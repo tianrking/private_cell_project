@@ -34,6 +34,7 @@ validation_image_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validatio
 validation_label_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validation\label-aug"
 
 
+
 '''
 模型相关参数
 '''
@@ -85,7 +86,7 @@ validation_data = trainGenerator(batch_size,
                                  input_size)
 
 #  定义模型
-model = Deeplabv3()
+model = Deeplabv3(pretrained_weights=models_dir)
 # model = loss_unet()
 # model = seg_hrnet(pretrained_weights = premodel_path,
 #                  input_size = input_size,
