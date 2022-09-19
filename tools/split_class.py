@@ -67,32 +67,31 @@ output_dir_image = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-cl
 
 dic_name = os.walk(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label")
 
-kk = FIND_LOCATION(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
 
-kk.Print()
+kk = FIND_LOCATION(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
 kk.find_white()
-kk.Print()
-print(kk.get_location())
 kk.clip_img(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image\D2020.09.07_S00021_I0939_D_WELL07_RUN087.JPG",
 			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
 kk.clip_img(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png",
 			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
-# gg = cv2.imread(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image\D2020.09.07_S00021_I0939_D_WELL07_RUN087.JPG")
-# # gg = cv2.imread(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
+
 # a,b,c,d = kk.get_location() # yx yx
 # gg = gg[b:d,a:c] # xx yy
 # cv2.imwrite(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png", gg)
 
-# time_test = 5
-# for path, dir_list, file_list in dic_name:
-# 	for file_name in file_list:
-# 		# print(file_name)
-# 		# print(path+file_name)
-# 		work_class = FIND_LOCATION(path + '\\' + file_name)
-# 		work_class.find_white()
-# 		work_class.clip_img(path + file_name, output_dir_label + file_name)
-# 		print(work_class.get_location())
-# 		time_test = time_test - 1
-#
-# 		if time_test == 0:
-# 			break
+time_test = 0
+for path, dir_list, file_list in dic_name:
+	for file_name in file_list:
+
+		kk = FIND_LOCATION(
+			path+"\\"+file_name)
+		kk.find_white()
+		kk.clip_img(
+			path.split("label")[0]+"\\image"+"\\"+file_name.split(".png")[0]+".JPG",
+			path.split("label")[0]+"\\image-clip"+"\\"+file_name)
+		kk.clip_img(
+			path+"\\"+file_name,
+			path.split("label")[0]+"\\label-clip"+"\\"+file_name)
+
+		print(time_test)
+		time_test = time_test + 1
