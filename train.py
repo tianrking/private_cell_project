@@ -23,12 +23,24 @@ sess = tf.compat.v1.Session(config=config)
 数据集相关参数
 '''
 #  训练数据图像路径
-train_image_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-aug"
+train_image_path = [
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-aug",
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-clip"
+    ]
     # r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_train"
 #  训练数据标签路径
-train_label_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-aug"
+train_label_path = [
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-aug",
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-aug-clip"
+    ]
+
 #  验证数据图像路径
-validation_image_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validation\image-aug"
+validation_image_path = [
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validation\image-aug",
+    r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validation\image-aug-clip",
+    ]
+
+
 #r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_test"
 #  验证数据标签路径
 validation_label_path = r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\validation\label-aug"

@@ -80,18 +80,31 @@ kk.clip_img(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.
 # cv2.imwrite(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png", gg)
 
 time_test = 0
+kk = {}
 for path, dir_list, file_list in dic_name:
 	for file_name in file_list:
 
-		kk = FIND_LOCATION(
-			path+"\\"+file_name)
-		kk.find_white()
-		kk.clip_img(
-			path.split("label")[0]+"\\image"+"\\"+file_name.split(".png")[0]+".JPG",
-			path.split("label")[0]+"\\image-clip"+"\\"+file_name)
-		kk.clip_img(
-			path+"\\"+file_name,
-			path.split("label")[0]+"\\label-clip"+"\\"+file_name)
+		i_image_dir = path.split("label")[0] + "image" + "\\" + file_name.split(".png")[0] + ".JPG"
+		i_label_dir = path + "\\" + file_name
+
+		o_image_clip_dir = path.split("label")[0] + "image-clip" + "\\" + file_name
+		o_label_clip_dir = path.split("label")[0] + "label-clip" + "\\" + file_name
+
+
+		kk[time_test] = FIND_LOCATION(
+			i_label_dir)
+		kk[time_test].find_white()
+		kk[time_test].clip_img(
+			i_image_dir,
+			o_image_clip_dir)
+		kk[time_test].clip_img(
+			i_label_dir,
+			o_label_clip_dir)
+
+		kk[time_test].Print()
 
 		print(time_test)
 		time_test = time_test + 1
+
+		if time_test == 8:
+			break
