@@ -4,25 +4,36 @@ import os
 import numpy as np
 
 class FIND_LOCATION:
-	x_min = 0
-	x_max = 0
-	y_min = 0
-	y_max = 0
-
-	x_list = []
-	y_list = []
-
-	np_im = 0
-
-	ROI = 0
+	# x_min = 0
+	# x_max = 0
+	# y_min = 0
+	# y_max = 0
+	#
+	# x_list = []
+	# y_list = []
+	#
+	# np_im = 0
+	#
+	# ROI = 0
 
 	def __init__(self, dir):
 		im = Image.open(dir)
 		self.np_im = np.asarray(im)
+		self.np_im = np.asarray(im)
+		self.x_min = 0
+		self.x_max = 0
+		self.y_min = 0
+		self.y_max = 0
+
+		self.x_list = []
+		self.y_list = []
+		self.ROI = 0
+		self.np_im = 0
 
 	def read_img(self, dir):
 		im = Image.open(dir)
 		self.np_im = np.asarray(im)
+		print(self.np_im)
 		return self.np_im
 
 	def Print(self):
@@ -70,15 +81,15 @@ train_label_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\train\label"
 ## train_label_path 根据白色最小外接矩形裁剪原图路径
 train_image_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\train\image"
 
-validation_label_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\label-aug"
-validation_image_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\image-aug"
+# validation_label_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\label-aug"
+# validation_image_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\image-aug"
 
 
 ## 裁剪图路径
 output_dir_label = r"F:\ww\lwd\data_only\Data\yuanhe_heren\train\label-clip"
 output_dir_image = r"F:\ww\lwd\data_only\Data\yuanhe_heren\train\image-clip"
-output_dir_validation_label_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\label-aug-clip"
-output_dir_validation_image_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\image-aug-clip"
+# output_dir_validation_label_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\label-aug-clip"
+# output_dir_validation_image_path = r"F:\ww\lwd\data_only\Data\yuanhe_heren\validation\image-aug-clip"
 
 dic_name = os.walk(r"F:\ww\lwd\data_only\Data\yuanhe_heren\train\label")
 
@@ -109,6 +120,7 @@ for path, dir_list, file_list in dic_name:
 		o_label_clip_dir = path.split("label")[0] + "label-clip" + "\\" + file_name
 
 		g[time_test] = FIND_LOCATION(i_label_dir)
+		g[time_test].read_img(i_label_dir)
 		# g[time_test] = FIND_LOCATION(
 		# 	path+"\\"+file_name)
 		g[time_test].find_white()

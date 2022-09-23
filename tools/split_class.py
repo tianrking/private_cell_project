@@ -4,32 +4,41 @@ import os
 import numpy as np
 
 class FIND_LOCATION:
-	x_min = 0
-	x_max = 0
-	y_min = 0
-	y_max = 0
-
-	x_list = []
-	y_list = []
-
-	np_im = 0
-
-	ROI = 0
+	# x_min = 0
+	# x_max = 0
+	# y_min = 0
+	# y_max = 0
+	#
+	# x_list = []
+	# y_list = []
+	#
+	# np_im = 0
+	#
+	# ROI = 0
 
 	def __init__(self, dir):
 		im = Image.open(dir)
 		self.np_im = np.asarray(im)
+		self.x_min = 0
+		self.x_max = 0
+		self.y_min = 0
+		self.y_max = 0
+
+		self.x_list = []
+		self.y_list = []
+		self.ROI=0
+		self.np_im=0
 
 	def read_img(self, dir):
 		im = Image.open(dir)
 		self.np_im = np.asarray(im)
 		return self.np_im
 
-	def Print(self):
-		print("%s %s %s %s\n" % (self.x_max, self.x_min, self.y_min, self.y_max))
-		# print(self.x_min)
-		# print(self.y_min)
-		# print(self.y_max)
+	# def Print(self):
+	# 	print("%s %s %s %s\n" % (self.x_max, self.x_min, self.y_min, self.y_max))
+	# 	# print(self.x_min)
+	# 	# print(self.y_min)
+	# 	# print(self.y_max)
 
 	def find_white(self):
 
@@ -49,7 +58,9 @@ class FIND_LOCATION:
 
 	def clip_img(self, clip_origin_location, save_location):
 		gg = cv2.imread(clip_origin_location)
+		print(type(gg))
 		self.ROI = gg[self.x_min:self.x_max, self.y_min:self.y_max]
+		print(type(self.ROI))
 		cv2.imwrite(save_location, self.ROI)
 
 		# cv2.imwrite(save_location, self.ROI)
@@ -69,11 +80,11 @@ dic_name = os.walk(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label")
 
 
 kk = FIND_LOCATION(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
-kk.find_white()
+# kk.find_white()
 kk.clip_img(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image\D2020.09.07_S00021_I0939_D_WELL07_RUN087.JPG",
-			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
+			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\image-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.JPG")
 kk.clip_img(r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png",
-			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.png")
+			r"F:\ww\lwd\data_only\Data\xibao_zhiyun_yuanhe\train\label-clip\D2020.09.07_S00021_I0939_D_WELL07_RUN087.JPG")
 
 # a,b,c,d = kk.get_location() # yx yx
 # gg = gg[b:d,a:c] # xx yy
@@ -101,7 +112,7 @@ for path, dir_list, file_list in dic_name:
 			i_label_dir,
 			o_label_clip_dir)
 
-		kk[time_test].Print()
+		# kk[time_test].Print()
 
 		print(time_test)
 		time_test = time_test + 1
