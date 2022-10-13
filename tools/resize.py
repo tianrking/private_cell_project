@@ -34,7 +34,7 @@ class class_Resize:
 
 dir_name = r"F:\ww\lwd\data_only\Data\yuanhe_heren\\train"
 
-_dir = class_Resize_dir(dir_name +  "\image-clip",dir_name + "\image-clip-resize")
+_dir = class_Resize_dir(dir_name +  "\label-clip",dir_name + "\label-clip-resize")
 
 dic_name_list = os.walk(_dir.origin)
 
@@ -48,5 +48,6 @@ for path, dir_list, file_list in dic_name_list:
         dd = 0
         
         print(str(t) + " " +path + "/" + file_name )
+        t = t + 1
         # print(_dir.origin + "/" + file_name)
         # print(_dir.resize + "/" + file_name)
