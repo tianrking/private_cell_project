@@ -28,28 +28,25 @@ class class_Resize:
     def resize_save(self,_dir,_name):
         # without /
         self.pic_resize.save(_dir + "/" + _name, ignore_discard=False, ignore_expires=False)
-        
-    
-    
-# root = "/home/w0x7ce/Desktop/private_cell_project/media/" 
-# pic = Image.open(root + "test_01.png")
-# pic = pic.resize((220, 220))
-# pic.save(root + "/test_01_resize.png", ignore_discard=False, ignore_expires=False)
 
-dic_name = "/home/w0x7ce/Desktop/private_cell_project/media"
 
-_dir = class_Resize_dir(dic_name + "/" + "origin",dic_name + "/" + "resize")
+# dic_name = "/home/w0x7ce/Desktop/private_cell_project/media"
+
+dir_name = r"F:\ww\lwd\data_only\Data\yuanhe_heren\\train"
+
+_dir = class_Resize_dir(dir_name +  "\image-clip",dir_name + "\image-clip-resize")
 
 dic_name_list = os.walk(_dir.origin)
 
+t = 1
 for path, dir_list, file_list in dic_name_list:
     for file_name in file_list:
         
         dd = class_Resize(path,file_name)
-        dd.resize(2000,2000)
+        dd.resize(200,200)
         dd.resize_save(_dir.resize,file_name)
         dd = 0
         
-        # print(path + "/" + file_name)
+        print(str(t) + " " +path + "/" + file_name )
         # print(_dir.origin + "/" + file_name)
         # print(_dir.resize + "/" + file_name)
