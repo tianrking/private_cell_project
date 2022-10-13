@@ -126,19 +126,19 @@ for path, dir_list, file_list in dic_name:
 		g[time_test].find_white()
 		# kk.Print()
 
-		# i_image_dir = path.split("label")[0]+"image"+"\\"+file_name.split(".png")[0]+".JPG"
+		i_image_dir = path.split("label")[0]+"image"+"\\"+file_name.split(".png")[0]+".JPG"
 		# i_label_dir = path+"\\"+file_name
 		#
-		# # o_image_clip_dir = path.split("label")[0]+"image-clip"+"\\"+file_name
+		o_image_clip_dir = path.split("label")[0]+"image-clip"+"\\"+file_name
 		# o_label_clip_dir = path.split("label")[0]+"label-clip"+"\\"+file_name
 
 
 		# o_val_image_dir = path+"\\"+file_name
 		# o_val_label_dir = path.split("label")[0]+"label-clip"+"\\"+file_name
 		#
-		# g[time_test].clip_img(
-		# 	i_image_dir,
-		# 	o_image_clip_dir)
+		g[time_test].clip_img(
+			i_image_dir,
+			o_image_clip_dir)
 		g[time_test].clip_img(
 			i_label_dir,
 			o_label_clip_dir)
