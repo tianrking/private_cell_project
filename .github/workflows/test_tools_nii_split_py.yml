@@ -36,6 +36,16 @@ jobs:
             #pip install -r requirements.txt
             cd ~/workspace/tools/
             pip install -r requirements.txt
+            
+      - name : Download DATA nii FOR TEST
+        run : |
+            cd ~/workspace
+            mkdir Download
+            pushd Downlaod
+            wget https://github.com/tianrking/tianrking.github.io/releases/download/nii_data/data_source.zip
+            unzip data_source_zip -d nii_data
+            popd
+            echo $PATH
 
       - name: SPLIT&GET PIC(nii) 
         run : |
