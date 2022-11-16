@@ -41,7 +41,7 @@ jobs:
         run : |
             cd ~/workspace
             mkdir Download
-            pushd Downlaod
+            pushd Download
             wget https://github.com/tianrking/tianrking.github.io/releases/download/nii_data/data_source.zip
             unzip data_source_zip -d nii_data
             popd
