@@ -51,6 +51,15 @@ jobs:
         run : |
             cd ~/workspace
             python3 tools/nii_split.py 
+            
+      - name: PUSH RESULT to PIC_TEMP BRANCH
+        run : |
+            cd ~/workspace/result
+            git checkout -b PIC_TEMP
+            git add .
+            git commit -m "ADD: result PIC"
+            git push -u origin PIC_TEMP
+            
 
             
       
