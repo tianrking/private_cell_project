@@ -32,7 +32,7 @@ class class_Resize:
 
 # dic_name = "/home/w0x7ce/Desktop/private_cell_project/media"
 
-dir_name = r"F:\ww\lwd\data_only\Data\yuanhe_heren\\train"
+dir_name = r"F:\ww\lwd\data_only\Data\yuanhe_heren\\test"
 
 _dir = class_Resize_dir(dir_name +  "\label-clip",dir_name + "\label-clip-resize")
 
