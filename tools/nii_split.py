@@ -7,11 +7,14 @@ from PIL import Image
 
 np.set_printoptions(threshold=np.inf)
 
+relative_path_enable = 1
 
-filepath = r'D:\邓SJ\chengang\seg_thor\data\data_source\Patient_01'  # 读取本代码同个文件夹下所有的nii格式的文件
-filenames = os.listdir(filepath)
-imgfile = r'D:\邓SJ\chengang\seg_thor\data\data_source\Patient_01'
-
+if !relative_path_enable:
+    filepath = r'D:\邓SJ\chengang\seg_thor\data\data_source\Patient_01'  # 读取本代码同个文件夹下所有的nii格式的文件
+    filenames = os.listdir(filepath)
+    imgfile = r'D:\邓SJ\chengang\seg_thor\data\data_source\Patient_01'
+else:
+    filepath = ./Downloads/
 
 
 for f in filenames:  # 开始读取nii文件
