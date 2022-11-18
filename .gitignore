@@ -138,3 +138,5 @@ model_weight/*
 *.idea
 __pycache__/*
 TrainTime*
+
+DATA_IGNORE_FILE/*
