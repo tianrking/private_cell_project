@@ -35,7 +35,7 @@ class PG:
         
 for kk in range(10,40):
     
-    filenames = filepath + "Patient_%s"%"02"
+    filenames = filepath + "Patient_%s"%kk
 
     _PG = PG()
     _name = ""
@@ -60,23 +60,23 @@ for kk in range(10,40):
                 slice_2 = data[:, :, i]
                 cv2.imwrite('DATA_IGNORE_FILE/%s/Patient/%s_mask.png'%(_PG.Name,i),slice_2)
 
-        # if name.startswith('GT') and name.endswith('nii'):
+        if name.startswith('GT') and name.endswith('nii'):
             
-        #     _PG.Name = "Patient_%s" % kk
-        #     _PG.GT = name
+            _PG.Name = "Patient_%s" % kk
+            _PG.GT = name
             
-        #     img = nib.load(absolute_path + "/" + _PG.Name + "/" + _PG.GT)
-        #     data = img.get_fdata()
-        #     print(data.shape,type(data))
+            img = nib.load(absolute_path + "/" + _PG.Name + "/" + _PG.GT)
+            data = img.get_fdata()
+            print(data.shape,type(data))
             
-        #     if not os.path.exists("DATA_IGNORE_FILE/%s"%_PG.Name):
-        #         os.mkdir("DATA_IGNORE_FILE/%s"%_PG.Name)
-        #         os.mkdir("DATA_IGNORE_FILE/%s/%s"%(_PG.Name,"Patient"))
-        #         os.mkdir("DATA_IGNORE_FILE/%s/%s"%(_PG.Name,"GT"))
+            if not os.path.exists("DATA_IGNORE_FILE/%s"%_PG.Name):
+                os.mkdir("DATA_IGNORE_FILE/%s"%_PG.Name)
+                os.mkdir("DATA_IGNORE_FILE/%s/%s"%(_PG.Name,"Patient"))
+                os.mkdir("DATA_IGNORE_FILE/%s/%s"%(_PG.Name,"GT"))
 
-        #     for i in range(0,data.shape[2]):
-        #         slice_2 = data[:, :, i]
-        #         cv2.imwrite('DATA_IGNORE_FILE/%s/GT/%s_mask.png'%(_PG.Name,i),slice_2)
+            for i in range(0,data.shape[2]):
+                slice_2 = data[:, :, i]
+                cv2.imwrite('DATA_IGNORE_FILE/%s/GT/%s_mask.png'%(_PG.Name,i),slice_2)
 
         print(str(index) + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     
