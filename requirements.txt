@@ -35,7 +35,7 @@ opencv-python==4.5.4.58
 opt-einsum==3.3.0
 parso @ file:///opt/conda/conda-bld/parso_1641458642106/work
 pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
-Pillow==8.4.0
+Pillow==9.3.0
 prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1633440160888/work
 protobuf==3.19.5
 pyasn1==0.4.8
