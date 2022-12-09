@@ -3,7 +3,7 @@ astunparse==1.6.3
 backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
 cached-property==1.5.2
 cachetools==4.2.4
-certifi==2021.10.8
+certifi==2022.12.7
 charset-normalizer==2.0.7
 colorama @ file:///tmp/build/80754af9/colorama_1607707115595/work
 cycler==0.11.0
