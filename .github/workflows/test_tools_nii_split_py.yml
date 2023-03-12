@@ -1,0 +1,65 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: test_ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1.0.0
+
+      - name: Checkout
+        uses: actions/checkout@master
+        
+      - name: INSTALL SSH KEY
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PC }} 
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+      - name: GIT CLONE
+        run: |
+            sudo apt-get update
+            sudo apt-get install \
+                  git -y 
+            git config --global user.name 'tianrking'
+            git config --global user.email 'tian.r.king@gmail.com'
+            git clone git@github.com:tianrking/private_cell_project.git ~/workspace
+
+      - name: INSTALL PYTHON ENV FOR ML TOOLS
+        run : |
+            cd ~/workspace
+            #pip install -r requirements.txt
+            cd ~/workspace/tools/
+            pip install -r requirements.txt
+            
+      - name : Download DATA nii FOR TEST
+        run : |
+            cd ~/workspace
+            mkdir Download
+            pushd Download
+            wget https://github.com/tianrking/tianrking.github.io/releases/download/nii_data/data_source.zip
+            unzip data_source_zip -d nii_data
+            popd
+            echo $PATH
+
+      - name: SPLIT&GET PIC(nii) 
+        run : |
+            cd ~/workspace
+            python3 tools/nii_split.py 
+            
+      - name: PUSH RESULT to PIC_TEMP BRANCH
+        run : |
+            cd ~/workspace/result
+            git checkout -b PIC_TEMP
+            git add .
+            git commit -m "ADD: result PIC"
+            git push -u origin PIC_TEMP
+            
+
+            
+      

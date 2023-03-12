@@ -1,0 +1,33 @@
+author: "w0x7ce" 
+
+env_config:
+  CUDA_VISIBLE_DEVICES: 1
+
+base_config:
+  #  训练数据图像路径
+  train_image_path : r"E:\w0x7ce_td\A\heren-yuanhe\image_all"
+  #  训练数据标签路径
+  train_label_path : r"E:\w0x7ce_td\A\heren-yuanhe\label_all"
+  #  验证数据图像路径
+  validation_image_path : r"E:\w0x7ce_td\A\heren-yuanhe\image_all"
+  #  验证数据标签路径
+  validation_label_path : r"E:\w0x7ce_td\A\heren-yuanhe\label_all"
+
+
+model_config:
+
+  batch_size : 2
+  #  类的数目(包括背景)
+  classNum : 5
+  #  模型输入图像大小
+  input_size : (512, 512, 3)
+  #  训练模型的迭代总轮数
+  epochs : 100
+  #  初始学习率
+  learning_rate : 1e-5
+  #  预训练模型地址,没有为none
+  #xibao最佳模型路径F:\ww\lwd\data_only\Data\xibao\model\model3000-4-4-5-120\weights.107-0.05957.hdf5
+  premodel_path :  r"E:\ww\CTsegthor\model\model-1out-stage4\weights.78-0.00929.hdf5"
+  # Support None r"E:\ww\CTsegthor\model\all\weights.12-0.01424.hdf5"比较好的一次unet可以作为premodel
+  # 训练模型保存地址
+  model_path : r"E:\w0x7ce_td\O\output_weight\weights.{epoch:02d}-{val_loss:.5f}.hdf5"
