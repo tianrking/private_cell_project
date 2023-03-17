@@ -3,6 +3,14 @@ author: "w0x7ce"
 env_config:
   CUDA_VISIBLE_DEVICES: 1
 
+################################################################
+# FLAGS: DEBUG RELEASE
+################################################################
+
+################################
+# traing parameters
+################################################################
+
 base_config:
   #  训练数据图像路径
   train_image_path : r"E:\w0x7ce_td\A\heren-yuanhe\image_all"
@@ -12,7 +20,6 @@ base_config:
   validation_image_path : r"E:\w0x7ce_td\A\heren-yuanhe\image_all"
   #  验证数据标签路径
   validation_label_path : r"E:\w0x7ce_td\A\heren-yuanhe\label_all"
-
 
 model_config:
 

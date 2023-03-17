@@ -1,3 +1,8 @@
+#READ CONFIG TRAIN.yml
+################################
+DEBUG = 1
+################################
+
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -68,7 +73,10 @@ for data_type in data_list:
     #  模型输入图像大小
     input_size = (512, 512, 3)
     #  训练模型的迭代总轮数
-    epochs = 100
+    if DEBUG == 1 :
+        epochs = 1
+    else :
+        epochs = 100
     #  初始学习率
     learning_rate = 1e-5
     #  预训练模型地址,没有为none
