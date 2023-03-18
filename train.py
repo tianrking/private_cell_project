@@ -1,6 +1,6 @@
 #READ CONFIG TRAIN.yml
 ################################
-DEBUG = 1
+DEBUG = 0
 ################################
 
 import os
@@ -48,6 +48,10 @@ import tensorflow
 
 data_list = ["heren","heren-yuanhe","heren-yuanhe-zhiyun","heren-yuanhe-zhiyun-xibao"]
 
+model_list = []
+
+premodel_path = None
+
 for data_type in data_list:
 #  训练数据图像路径
 
@@ -85,7 +89,7 @@ for data_type in data_list:
         #r"F:\ww\lwd\data_only\Data\xibao_yuanhe\model\4-4-4-120-xibao-1\weights.19-0.00613.hdf5"
         # r"E:\ww\CTsegthor\model\all\weights.12-0.01424.hdf5"比较好的一次unet可以作为premodel
         # None
-    premodel_path = None
+    # premodel_path = None
 
     #  训练模型保存地址
 
@@ -104,7 +108,6 @@ for data_type in data_list:
     validation_steps = validation_num / batch_size
     #  标签的颜色字典,用于onehot编码
     colorDict_RGB, colorDict_GRAY = color_dict(train_label_path, classNum)
-
 
     #  得到一个生成器，以batch_size的速率生成训练数据
     train_Generator = trainGenerator(batch_size,
@@ -133,7 +136,6 @@ for data_type in data_list:
                         input_size = input_size,
                         classNum = classNum,
                         learning_rate = learning_rate)
-
 
     #  打印模型结构
     model.summary()
@@ -169,6 +171,9 @@ for data_type in data_list:
     with open('TrainTime_%s.txt'%time,'w') as f:
         f.write(log_time)
         
+    model.save(r"E:\w0x7ce_td\O\output_weight\%s.h5"%(data_type))
+    premodel_path = r"E:\w0x7ce_td\O\output_weight\%s.h5"%(data_type)
+        
     #  保存并绘制loss,acc
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
@@ -194,4 +199,6 @@ for data_type in data_list:
     plt.title('Training and validation loss')
     plt.legend()
     plt.savefig("loss_%s.png"%time, dpi = 300)
-    plt.show()
+    # plt.show()
+    
+    # break
