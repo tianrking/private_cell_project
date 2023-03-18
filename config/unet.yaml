@@ -4,8 +4,11 @@ env_config:
   CUDA_VISIBLE_DEVICES: 1
 
 ################################################################
-# FLAGS: DEBUG RELEASE
+# FLAGS: DEBUG 
 ################################################################
+
+type:
+  Debug: true
 
 ################################
 # traing parameters
