@@ -143,7 +143,7 @@ class _covert_image1:
 #     heren_yuanhe_label_dir = heren_yuanhe_dir + "/label_all/"
 #     heren_yuanhe_image_roi_dir = heren_yuanhe_dir + "/image_roi_all/"
 
-heren_yuanhe_dir = r"E:\w0x7ce_td\A\heren-yunahe-zhiyun"
+heren_yuanhe_dir = r"E:\w0x7ce_td\A\heren"
 heren_yuanhe_image_dir = heren_yuanhe_dir + r"\image_all\\"
 heren_yuanhe_label_dir = heren_yuanhe_dir + r"\label_all\\"
 heren_yuanhe_image_roi_dir = heren_yuanhe_dir + r"\image_roi_all\\"
@@ -183,7 +183,7 @@ for root, dirs, files in os.walk(heren_yuanhe_image_dir):
             AA.read_label(heren_yuanhe_label_dir + file_name + ".png")
 
         try:
-            AA.set_color(192*3)  # 255 * 3 ## 192 * 3 
+            AA.set_color(255*3)  # 255 * 3 ## 192 * 3 
             AA.get_mask()
             AA.save_mask(heren_yuanhe_image_roi_dir + file_name + ".png")
         except:
