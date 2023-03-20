@@ -7,7 +7,7 @@ import yaml
 import sys
 import getopt
 
-config = None
+root_dir = None
 argv = sys.argv[1:]
 opts = []
 
@@ -19,52 +19,46 @@ except:
 
 for opt, arg in opts:
     if opt in ['-d']:
-        config = arg
+        root_dir = arg
 
-
-class train_test_split_class:
-
-    def __init__(self) -> None:
-        pass
-
-    def set_path(self, train_image_files_path, test_image_files_path) -> None:
-        self.train_dir = train_image_files_path
-        self.test_dir = test_image_files_path
-
-    @classmethod
-    def _set_path(cls, path) -> bool:
-        pass
-
-
-def save_images_to_dir(image_files, labels, dst_dir):
+import os
+import shutil
+def save_images_to_dir(image_files, dst_dir):
     """
-    将图像文件保存到指定目录中，目录结构为dst_dir/label/image.jpg
+    将图像文件保存到指定目录中，目录结构为dst_dir/image.jpg
     """
     os.makedirs(dst_dir, exist_ok=True)
-    for i, file_path in enumerate(image_files):
-        label = labels[i]
+    for file_path in image_files:
         file_name = os.path.basename(file_path)
-        dst_subdir = os.path.join(dst_dir, str(label))
-        os.makedirs(dst_subdir, exist_ok=True)
-        dst_path = os.path.join(dst_subdir, file_name)
+        dst_path = os.path.join(dst_dir, file_name)
         shutil.copyfile(file_path, dst_path)
 
-# 假设您的数据集在'/path/to/data'
+# root_dir = "/root/DDD/heren-yuanhe-zhiyun/"
+# 原始图片数据路径
+data_dir = 'image_roi_all'
+data_dir = root_dir + data_dir
+# 标签数据图片路径
+label_dir = 'label_all'
+label_dir = root_dir + label_dir
+# 划分比例
+test_size = 0.2
+# 训练集和测试集保存路径
 
-# data_dir = '/root/DDD/heren/label_all'
-# data_dir = r'E:\w0x7ce_td\A\heren-yuanhe\label_all'
+train_image_dir = root_dir + 'train/' + 'image_dir'
+train_label_dir = root_dir + 'train/' + 'label_dir'
+test_image_dir = root_dir + 'test/' + 'image_dir'
+test_label_dir = root_dir + 'test/' + 'label_dir'
 
-
-# 获取所有图像文件的路径
-image_files = [os.path.join(data_dir, f)
-               for f in os.listdir(data_dir) if f.endswith('.png')]
-
-# 定义标签，这里类别0
-labels = [0] * len(image_files)
+# 获取所有原始图片文件的路径
+image_files = [os.path.join(data_dir, f) for f in os.listdir(data_dir) if f.endswith('.png')]
+# 获取所有标签图片文件的路径
+label_files = [os.path.join(label_dir, f) for f in os.listdir(label_dir) if f.endswith('.png')]
 
 # 使用train_test_split函数将数据集划分为训练集和测试集
-train_image_files, test_image_files, train_labels, test_labels = train_test_split(
-    image_files, labels, test_size=0.2, random_state=42)
+train_image_files, test_image_files, train_label_files, test_label_files = train_test_split(image_files, label_files, test_size=test_size, random_state=42)
 
-save_images_to_dir(train_image_files, train_labels, 'train')
-save_images_to_dir(test_image_files, test_labels, 'test')
+# 将训练集和测试集保存到指定路径
+save_images_to_dir(train_image_files, train_image_dir)
+save_images_to_dir(test_image_files, test_image_dir)
+save_images_to_dir(train_label_files, train_label_dir)
+save_images_to_dir(test_label_files, test_label_dir)
