@@ -26,7 +26,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"#我的笔记本只有一块GPU，编号
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from seg_unet import *
+from fcn_test import *
+
 # from Model.seg_unet import unet
 # from loss_unet import loss_unet
 from dataProcess import trainGenerator, color_dict
@@ -40,6 +43,76 @@ import tensorflow
 # # print(device_lib.list_local_devices())
 # # print(tensorflow.test.is_gpu_available())
 
+################################
+# Read Configuration
+################################
+
+import yaml
+import sys
+import getopt
+
+class D_path:
+        
+    def __init__(self,config) -> None:
+        self.config = config
+        self.set_path(config)
+            
+    def set_path(self,config) -> None:
+        self.train_image_path = self.config['base_config']['train_image_path']
+        self.train_label_path = self.config['base_config']['train_label_path']
+        self.validation_image_path = self.config['base_config']['validation_image_path']
+        self.validation_label_path = self.config['base_config']['validation_label_path']
+        
+    @classmethod
+    def Print_config(cls) -> bool:
+        
+        pass
+        
+        
+class D_parameter:
+    
+    def __init__(self,config) -> None:
+        self.config = config
+        self.set_parameter(self.config)
+        
+    def set_parameter(self,config) -> None:
+        self.batch_size = config['model_config']['batch_size']
+        self.classNum = config['model_config']['class_Num']
+        self.input_size = config['model_config']['input_size']
+        self.epochs = config['model_config']['epochs']
+        self.learning_rate = config['model_config']['learning_rate']
+        
+        self.premodel_path = config['model_config']['premodel_path']
+        
+        self.model_path = config['model_config']['model_path']
+    
+    @classmethod
+    def Print_config(cls,config) -> bool:
+        pass
+
+config = None
+read_config_flag = False
+data_dir = None
+data_config = None
+argv = sys.argv[1:]
+
+try:
+    opts, args = getopt.getopt(argv, "c:u:")
+except:
+    print("Error")
+
+for opt, arg in opts:
+    if opt in ['-c']:
+        config = arg
+        read_config_flag = True
+        
+if read_config_flag is True:
+    f = open(config, encoding="utf-8")
+    config = yaml.load(f, Loader=yaml.FullLoader)
+    data_dir = D_path(config)
+    data_config = D_parameter(config)
+
+################################
 
 
 '''
@@ -55,23 +128,28 @@ premodel_path = None
 for data_type in data_list:
 #  训练数据图像路径
 
-    train_image_path = r"E:\w0x7ce_td\A\%s\image_all"%(data_type)
-    # print(train_image_path)
-        # r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_train"
-    #  训练数据标签路径
-    train_label_path = r"E:\w0x7ce_td\A\%s\label_all"%(data_type)
-    #  验证数据图像路径
-    validation_image_path = r"E:\w0x7ce_td\A\%s\image_all"%(data_type)
-    #r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_test"
-    #  验证数据标签路径
-    validation_label_path = r"E:\w0x7ce_td\A\%s\label_all"%(data_type)
+    # train_image_path = r"E:\w0x7ce_td\A\0.8\%s\image_roi_all"%(data_type)
+    # # print(train_image_path)
+    #     # r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_train"
+    # #  训练数据标签路径
+    # train_label_path = r"E:\w0x7ce_td\A\0.8\%s\label_all"%(data_type)
+    # #  验证数据图像路径
+    # validation_image_path = r"E:\w0x7ce_td\A\0.8\%s\image_roi_all"%(data_type)
+    # #r"F:\ww\unet\keras-segmentation-master\data\dataset1\images_prepped_test"
+    # #  验证数据标签路径
+    # validation_label_path = r"E:\w0x7ce_td\A\0.8\%s\label_all"%(data_type)
+    
+    train_image_path = r"E:\w0x7ce_td\A\0.8\%s\train\image_dir"%(data_type)
+    train_label_path = r"E:\w0x7ce_td\A\0.8\%s\train\label_dir"%(data_type)
+    validation_image_path = r"E:\w0x7ce_td\A\0.8\%s\test\image_dir"%(data_type)
+    validation_label_path = r"E:\w0x7ce_td\A\0.8\%s\test\label_dir"%(data_type)
 
 
     '''
     模型相关参数
     '''
     #  批大小c
-    batch_size = 2
+    batch_size = 4
     #  类的数目(包括背景)
     classNum = 5
     #  模型输入图像大小
@@ -93,7 +171,7 @@ for data_type in data_list:
 
     #  训练模型保存地址
 
-    model_path = r"E:\w0x7ce_td\O\output_weight\{data_type}.weights.{epoch:02d}-{val_loss:.5f}.hdf5"#.format(data_type=data_type)
+    model_path = r"E:\w0x7ce_td\O\output_weight\%s-weights.{epoch:02d}-{val_loss:.5f}.hdf5"%(data_type)
         # "Model\\unet_model.hdf5"
         # \weights.{epoch:02d}-{val_loss:.5f}.hdf5
 
@@ -127,12 +205,20 @@ for data_type in data_list:
 
     if premodel_path is None:
 
-        model = unet(   input_size = input_size,
+        # model = unet(   input_size = input_size,
+        #                 classNum = classNum,
+        #                 learning_rate = learning_rate)
+        model = FCN_8S(   input_size = input_size,
                         classNum = classNum,
                         learning_rate = learning_rate)
+    
 
     else:
-        model = unet(pretrained_weights = premodel_path,
+        # model = unet(pretrained_weights = premodel_path,
+        #                 input_size = input_size,
+        #                 classNum = classNum,
+        #                 learning_rate = learning_rate)
+        model = FCN_8S(pretrained_weights = premodel_path,
                         input_size = input_size,
                         classNum = classNum,
                         learning_rate = learning_rate)
@@ -148,8 +234,8 @@ for data_type in data_list:
     model_checkpoint = ModelCheckpoint(model_path,
                                     monitor = 'loss',
                                     verbose = 1,# 日志显示模式:0->安静模式,1->进度条,2->每轮一行
-                                    save_best_only = True,
-                                    period=3)
+                                    save_best_only = True)
+                                    # period=3)
                                     # period=5#每5次保存模型文件)
 
     #  获取当前时间
@@ -171,9 +257,18 @@ for data_type in data_list:
     with open('TrainTime_%s.txt'%time,'w') as f:
         f.write(log_time)
         
-    model.save(r"E:\w0x7ce_td\O\output_weight\%s.h5"%(data_type))
-    premodel_path = r"E:\w0x7ce_td\O\output_weight\%s.h5"%(data_type)
+    model_path = r"E:\w0x7ce_td\O\output_weight\%s.h5"%(data_type)
+    model_list.append(model_path)
+    
+    try:
+        model.save(model_path)
+    except:
+        print("save error")
         
+    
+    premodel_path = model_path
+    print(premodel_path)
+    
     #  保存并绘制loss,acc
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
