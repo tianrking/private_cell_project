@@ -29,6 +29,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from seg_unet import *
 from fcn_test import *
+from deeplabv3plus_model import *
 
 # from Model.seg_unet import unet
 # from loss_unet import loss_unet
@@ -208,17 +209,24 @@ for data_type in data_list:
         # model = unet(   input_size = input_size,
         #                 classNum = classNum,
         #                 learning_rate = learning_rate)
-        model = FCN_8S(   input_size = input_size,
-                        classNum = classNum,
-                        learning_rate = learning_rate)
-    
+        # model = FCN_8S(   input_size = input_size,
+        #                 classNum = classNum,
+        #                 learning_rate = learning_rate)
+        
+        model = Deeplabv3(   input_size = input_size,
+                classNum = classNum,
+                learning_rate = learning_rate)
 
     else:
         # model = unet(pretrained_weights = premodel_path,
         #                 input_size = input_size,
         #                 classNum = classNum,
         #                 learning_rate = learning_rate)
-        model = FCN_8S(pretrained_weights = premodel_path,
+        # model = FCN_8S(pretrained_weights = premodel_path,
+        #                 input_size = input_size,
+        #                 classNum = classNum,
+        #                 learning_rate = learning_rate)
+        model = Deeplabv3(pretrained_weights = premodel_path,
                         input_size = input_size,
                         classNum = classNum,
                         learning_rate = learning_rate)
