@@ -124,9 +124,10 @@ data_list = ["heren","heren-yuanhe","heren-yuanhe-zhiyun","heren-yuanhe-zhiyun-x
 
 model_list = []
 
-premodel_path = None
+# premodel_path = None
+premodel_path = r"E:\w0x7ce_td\O\output_weight\heren-yuanhe-zhiyun.h5"
 
-for data_type in data_list:
+for data_type in data_list[3:]:
 #  训练数据图像路径
 
     # train_image_path = r"E:\w0x7ce_td\A\0.8\%s\image_roi_all"%(data_type)
