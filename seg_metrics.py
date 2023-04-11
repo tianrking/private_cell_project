@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 21 15:29:02 2020
-
-@author: 12624
-"""
-
 import numpy as np
 import cv2
 import os
@@ -115,9 +108,11 @@ def Frequency_Weighted_Intersection_over_Union(confusionMatrix):
 
 #################################################################
 #  标签图像文件夹
-LabelPath = r"E:\ww\CTsegthor\test\label-all"
+# LabelPath = r"E:\ww\CTsegthor\test\label-all"
+LabelPath = r"E:\w0x7ce_td\A\0.8\heren-yuanhe-zhiyun-xibao\test\label_dir"
 #  预测图像文件夹
-PredictPath = r"E:\ww\CTsegthor\test\pre-unet-stage4"
+# PredictPath = r"E:\ww\CTsegthor\test\pre-unet-stage4"
+PredictPath = r"E:\w0x7ce_td\A\predict\deeplabv3"
 #  类别数目(包括背景)
 classNum =5
 #################################################################
@@ -130,7 +125,10 @@ labelList = os.listdir(LabelPath)
 PredictList = os.listdir(PredictPath)
 
 #  读取第一个图像，后面要用到它的shape
+resize_width = 512 
+resize_height = 512 
 Label0 = cv2.imread(LabelPath + "//" + labelList[0], 0)
+Label0 = cv2.resize(Label0 , (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
 
 #  图像数目
 label_num = len(labelList)
@@ -140,11 +138,13 @@ label_all = np.zeros((label_num, ) + Label0.shape, np.uint8)
 predict_all = np.zeros((label_num, ) + Label0.shape, np.uint8)
 for i in range(label_num):
     Label = cv2.imread(LabelPath + "//" + labelList[i])
+    Label = cv2.resize(Label , (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
     Label = cv2.cvtColor(Label, cv2.COLOR_BGR2GRAY)
     label_all[i] = Label
     Predict = cv2.imread(PredictPath + "//" + PredictList[i])
     Predict = cv2.cvtColor(Predict, cv2.COLOR_BGR2GRAY)
     predict_all[i] = Predict
+    
 
 #  把颜色映射为0,1,2,3...
 for i in range(colorDict_GRAY.shape[0]):
@@ -176,6 +176,7 @@ for i in range(colorDict_BGR.shape[0]):
     #  不安装的话,输出灰度值
     except:
         print(colorDict_GRAY[i][0], end = "  ")
+        
 print("")
 print("混淆矩阵:")
 print(confusionMatrix)
