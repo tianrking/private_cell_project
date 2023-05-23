@@ -44,7 +44,7 @@ Pygments @ file:///opt/conda/conda-bld/pygments_1644249106324/work
 pyparsing==3.0.5
 python-dateutil==2.8.2
 PyYAML==6.0
-requests==2.26.0
+requests==2.31.0
 requests-oauthlib==1.3.0
 rsa==4.7.2
 scipy==1.4.1
